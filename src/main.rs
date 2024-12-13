@@ -3,7 +3,7 @@ use ratatui::{
     crossterm::event::{self, Event, KeyCode},
     prelude::*,
     widgets::{
-        canvas::{Canvas, Circle},
+        canvas::{Canvas, Circle, Rectangle},
         Block, BorderType,
     },
     DefaultTerminal,
@@ -19,8 +19,10 @@ fn main() -> Result<()> {
 }
 
 struct App {
-    ball: Circle,
     playground: Rect,
+    ball: Circle,
+    left_player: Rectangle,
+    right_player: Rectangle,
     vx: f64,
     vy: f64,
     tick_count: u64,
@@ -29,13 +31,27 @@ struct App {
 impl App {
     fn new() -> Self {
         Self {
+            playground: Rect::new(0, 0, 200, 100),
             ball: Circle {
                 x: 50.0,
                 y: 40.0,
                 radius: 5.0,
                 color: Color::Yellow,
             },
-            playground: Rect::new(0, 0, 200, 100),
+            left_player: Rectangle {
+                x: 20.0,
+                y: 40.0,
+                width: 3.0,
+                height: 20.0,
+                color: Color::DarkGray,
+            },
+            right_player: Rectangle {
+                x: 180.0,
+                y: 40.0,
+                width: 3.0,
+                height: 20.0,
+                color: Color::DarkGray,
+            },
             vx: 1.0,
             vy: 1.0,
             tick_count: 0,
@@ -104,7 +120,8 @@ impl App {
             )
             .paint(|ctx| {
                 ctx.draw(&self.ball);
-                ctx.print(0.0, 40.0, format!("ball pos = {}", self.ball.x));
+                ctx.draw(&self.left_player);
+                ctx.draw(&self.right_player);
             })
             .x_bounds([0., f64::from(self.playground.width)])
             .y_bounds([0., f64::from(self.playground.height)])
