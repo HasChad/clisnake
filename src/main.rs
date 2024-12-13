@@ -32,10 +32,10 @@ impl App {
             ball: Circle {
                 x: 50.0,
                 y: 40.0,
-                radius: 10.0,
+                radius: 5.0,
                 color: Color::Yellow,
             },
-            playground: Rect::new(10, 10, 200, 100),
+            playground: Rect::new(0, 0, 200, 100),
             vx: 1.0,
             vy: 1.0,
             tick_count: 0,
@@ -98,20 +98,15 @@ impl App {
             .block(
                 Block::bordered()
                     .title("Pong")
+                    .title_style(Style::new().yellow().bold())
                     .title_alignment(Alignment::Center)
-                    .border_type(BorderType::Double),
+                    .border_type(BorderType::Rounded),
             )
             .paint(|ctx| {
                 ctx.draw(&self.ball);
-                ctx.print(10.0, 40.0, format!("ball pos = {}", self.ball.x));
+                ctx.print(0.0, 40.0, format!("ball pos = {}", self.ball.x));
             })
-            .x_bounds([
-                self.playground.x.into(),
-                f64::from(self.playground.width) + 10.,
-            ])
-            .y_bounds([
-                self.playground.y.into(),
-                f64::from(self.playground.height) + 10.,
-            ])
+            .x_bounds([0., f64::from(self.playground.width)])
+            .y_bounds([0., f64::from(self.playground.height)])
     }
 }
