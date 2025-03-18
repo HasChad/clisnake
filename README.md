@@ -1,3 +1,3 @@
-# CLI-Pipes
+# Clisnake
 
-CLI-Pipes is a TUI app made with [Rust](https://www.rust-lang.org/) using [Ratatui](https://ratatui.rs/).
+TUI snake game made with [Rust](https://www.rust-lang.org/) using [Ratatui](https://ratatui.rs/).
